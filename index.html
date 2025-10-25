@@ -2,18 +2,40 @@
 <html lang="de">
     <head>
         <meta charset="utf-8">
-        <title>iPixel-Web-Controller</title>
-        <script src="index.js" defer></script>
+        <title>iPixel-Controller</title>
+        <link rel="stylesheet" href="style.css">
     </head>
-
     <body>
-        <input type="button" value="Connect to Device" id="connect"/><br><br>
-        <input type="button" value="On" id="on"/>
-        <input type="button" value="Off" id="off"/><br><br>
-        <label for="brightness">Brightness</label>
-        <input type="range" id="brightness" name="Brightness" min="1" max="100"><br><br>
-        <input type="button" value="Disconnect" id="disconnect"/><br><br>
-        <input type="button" id="increase" name="increase" value="Increase Clock Mode">
-        <input type="button" id="decrease" name="decrease" value="Decrease Clock Mode">
+        <header>
+
+
+        </header>
+        <h1 class="heading">iPixel-Control</h1>
+        <div class="test">
+            <div class="centered">
+                <input type="button" value="Connect" id="connectbtn"/>
+                <input type="button" value="Disconnect" id="btn" style="display: none;"/>
+                <div class="status">Status:
+                    <span id="status">Disconnected</span>
+                </div>
+                <label for="on" style="display: none;">Power:</label>
+                <input type="button" value="On" id="on" style="display: none;"/>
+                <input type="button" value="Off" id="off" style="display: none;"/><br>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer">
+                <ul class="footer">
+                    <div>iPixel-Web&#128161 - made by John4320</div>
+                </ul>
+
+            </div>
+
+        </footer>
+
+
+
+        <script src="index.js" defer></script>
     </body>
 </html>

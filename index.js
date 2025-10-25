@@ -14,9 +14,10 @@ let options = {
 
 let clock_mode = 0;
 
-document.getElementById("connect").addEventListener("click", () =>  {
+document.getElementById("connectbtn").addEventListener("click", () =>  {
     connect();
 });
+
 
 document.getElementById("on").addEventListener("click", () =>  {
     on();
@@ -26,10 +27,11 @@ document.getElementById("off").addEventListener("click", () =>  {
     off();
 });
 
-document.getElementById("disconnect").addEventListener("click", () =>  {
+document.getElementById("btn").addEventListener("click", () =>  {
+    console.log("test");
     disconnect();
 });
-
+/** 
 document.getElementById("brightness").addEventListener("change", () =>  {
     set_brightness(event.target.value)
     
@@ -46,7 +48,8 @@ document.getElementById("decrease").addEventListener("click", () =>  {
     clock(clock_mode);
 
     setTimeout(() => set_time(), 1000)
-});
+});*/
+
 
 function intToHex(value) {
   return value.toString(16).padStart(2, "0");
@@ -72,15 +75,58 @@ async function getAvailibiltiy()
  */
 async function connect()
 {
-
     device = await navigator.bluetooth.requestDevice(options);
     console.log(`Gefundenes Devicce: ${device.name}`);
     
     server = await device.gatt.connect();
 
-    console.log(device.uuid);
+    console.log(device.id);
+
+    if(device.name != "") //Connection established
+    {
+        console.log("IF")
+        const connectbtn = document.getElementById("connectbtn");
+        connectbtn.style.display = "none";
+
+        showMultipleElements();
+
+        const status = document.getElementById("status");
+        status.textContent = "Connected";
+        status.style.color = "green";
+        status.style.weight = "bold";
+    }
     
     console.log("Verbindung erfolgreich hergestellt.")
+}
+
+function showMultipleElements()
+{
+     
+    elements = ["btn", "on", "off"]
+    
+    
+    elements.forEach(element => {
+        
+        const el = document.getElementById(element);
+        console.log(el);
+        if(!el) return;
+        el.style.display = "block";
+    });
+}
+
+function disableMultipleElements()
+{
+     
+    elements = ["on", "off"]
+    
+    
+    elements.forEach(element => {
+        
+        const el = document.getElementById(element);
+        console.log(el);
+        if(!el) return;
+        el.style.display = "none";
+    });
 }
 
 /**
@@ -88,7 +134,19 @@ async function connect()
  */
 async function disconnect(){
     
+    console.log("test");
     await device.gatt.disconnect();
+
+    const disconnectbtn = document.getElementById("btn");
+    disconnectbtn.style.display = "none";
+    disableMultipleElements();
+    const connectbtn = document.getElementById("connectbtn");
+    connectbtn.style.display = "block";
+    const status = document.getElementById("status");
+    status.textContent = "Disconnected";
+    status.style.color = "red";
+    status.style.weight = "bold";
+    
     console.log(`Gerät: ${device.name} disconnected.`);
 }
 
